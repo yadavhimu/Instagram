@@ -28,8 +28,9 @@ router.get('/search', isLoggedIn, function(req, res) {
   res.render('search', {footer: true});
 });
 
-router.get('/edit', isLoggedIn, function(req, res) {
-  res.render('edit', {footer: true});
+router.get('/edit', isLoggedIn, async function(req, res) {
+  const user = await userModel.findOne({ username: req.session.passport.user}); 
+   res.render('edit', {footer: true, user: user});
 });
 
 router.get('/upload', isLoggedIn, function(req, res) {
