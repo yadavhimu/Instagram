@@ -3,6 +3,8 @@ var router = express.Router();
 const userModel = require("./users");
 const passport = require("passport");
 const localStrategy = require("passport-local");
+const upload = require("./multer");
+
 
 passport.use(new localStrategy(userModel.authenticate()));
 
@@ -62,7 +64,16 @@ router.post("/logout",function (req, res, next) {
   });
 });
 
+router.post("/update", upload.single('image'), async function(req, res){
+  const user = await userModel.findOneAndUpdate({username: req.session.passport.user},
+    {username: req.body.username, name: req.body.name, bio: req.body.bio},
+    { new: true}
+    );
 
+    user.profileImage = req.file.filename;
+    await user.save();
+    res.redirect("/profile");
+});
 
  function isLoggedIn(req, res, next){
   if(req.isAuthenticated()) return next();
