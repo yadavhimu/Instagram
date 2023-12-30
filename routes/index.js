@@ -17,8 +17,9 @@ router.get('/login', function(req, res) {
   res.render('login', {footer: false});
 });
 
-router.get('/feed', isLoggedIn, function(req, res) {
-  res.render('feed', {footer: true});
+router.get('/feed', isLoggedIn, async function(req, res) {
+  const posts = await postModel.find().populate("user");
+  res.render('feed', {footer: true, posts});
 });
 
 router.get('/profile', isLoggedIn,async function(req, res) {
@@ -78,6 +79,19 @@ router.post("/update", upload.single('image'), async function(req, res){
     }
     await user.save();
     res.redirect("/profile");
+});
+
+router.post("/upload", isLoggedIn, upload.single("image"), async function(req, res){
+  const user = await userModel.findOne({ username: req.session.passport.user});
+  const post = await postModel.create({
+    picture:req.file.filename,
+    user: user._id,
+    caption:req.body.caption
+  })
+
+  user.posts.push(post._id);
+  await user.save();
+  res.redirect("/feed")
 });
 
  function isLoggedIn(req, res, next){
