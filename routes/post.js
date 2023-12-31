@@ -4,18 +4,18 @@ const postSchema = mongoose.Schema({
     picture: String,
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
+        ref: "user",
     },
     caption: String,
     date:{
         type: Date,
-        default:Date.now
+        default:Date.now,
     },
     likes:[
         {
             type: mongoose.Schema.Types.ObjectId,
             ref:"user",
-        }
+        },
     ]
 });
 

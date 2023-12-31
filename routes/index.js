@@ -68,7 +68,7 @@ router.post("/logout",function (req, res, next) {
   });
 });
 
-router.post("/update", upload.single('image'), async function(req, res){
+router.post("/update", upload.single("image"), async function(req, res){
   const user = await userModel.findOneAndUpdate({username: req.session.passport.user},
     {username: req.body.username, name: req.body.name, bio: req.body.bio},
     { new: true}

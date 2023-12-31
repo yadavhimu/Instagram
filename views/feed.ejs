@@ -70,11 +70,11 @@
       </div>
     </div>
     <div class="posts mb-20">
-      <!-- <% posts.forEach(function(elem){ %> -->
+      <% posts.forEach(function(elem){ %>
         <div class="post mt-10 w-full min-h-[50vh]">
           <div class="title px-4 flex items-center gap-2">
             <div class="w-[8vw] h-[8vw] bg-sky-100 rounded-full"></div>
-            <!-- <h4 class="text-sm"><%= elem.user.username %></h4> -->
+            <h4 class="text-sm"><%= elem.user.username %></h4>
             <h6 class="text-xs opacity-30">1d</h6>
           </div>
           <div class="w-full h-96 mt-4 bg-sky-100"></div>
@@ -90,7 +90,7 @@
           <h2 class="text-white font-light text-sm mt-2"><span class="font-semibold pl-4 pr-2">someusername</span>some
             caption with details.</h2>
         </div>
-      <!-- <% }) %> -->
+      <% }) %>
     </div>
   </div>
   <% include ./partials/footer.ejs %>
